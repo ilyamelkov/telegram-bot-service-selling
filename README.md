@@ -41,10 +41,9 @@
   ![DB structure](/ERD.jpg)
 
 ## **Bot features**
-- Create multiple appointments based on the available time and employee.
-- Choose appointment based on available date/available employee.
+- Create appointments based on available date/available employee.
 - View your upcoming appointments and cancel them if you would like to.
-- View prices for service. 
+- View prices for services. 
 
 ## **Possible usage**
 - The data itself can be modified by other people. The bot can be reused considering the same database structure.
