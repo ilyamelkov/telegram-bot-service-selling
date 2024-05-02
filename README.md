@@ -1,5 +1,8 @@
 # **Telegram Bot project**
 
+## **Note**
+- Docstrings for functions are im progress
+
 ## **Motivation**
 - Practice **MySQL** and **Python** simultaneously;
 - Practice **data manipulation** using Pandas;
