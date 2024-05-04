@@ -1,8 +1,5 @@
 # **Telegram Bot project**
 
-## **Note**
-- Docstrings for functions are im progress
-
 ## **Motivation**
 - Practice **MySQL** and **Python** simultaneously;
 - Practice **data manipulation** using Pandas;
@@ -46,7 +43,10 @@
 ## **Bot features**
 - Create appointments based on available date/available employee.
 - View your upcoming appointments and cancel them if you would like to.
-- View prices for services. 
+- View prices for services.
+
+## **Demonstration**
+- Check 'bot_demo.mp4'
 
 ## **Possible usage**
 - The data itself can be modified by other people. The bot can be reused considering the same database structure.
