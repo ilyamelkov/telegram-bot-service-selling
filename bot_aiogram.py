@@ -12,8 +12,6 @@ from aiogram.methods.edit_message_text import EditMessageText
 from aiogram.enums.parse_mode import ParseMode
 
 
-#TOKEN_API = "6695063731:AAE2rjW_rJFlKSY3dlUSTBRg2_BTVPLNUPs"
-
 bot = Bot(token=tg_token)
 dp = Dispatcher()
 
@@ -97,7 +95,7 @@ async def handle_enroll(message: types.Message):
 async def handle_serv_click(callback_query: CallbackQuery):
     user_data.update({"service_name": callback_query.data})
     await callback_query.message.edit_text(
-        text=f"Chosen service: {user_data['service_name']}",
+        text=f"•Chosen service: {user_data['service_name']}",
         reply_markup=gen_ikb_from_list(
             ["Choose employee", "Choose a date"],
             2,
@@ -115,7 +113,7 @@ async def handle_choose_emp_click(callback_query: CallbackQuery):
     dates = ret_empty_slots(se_name=user_data["service_name"], ret_dates=True)
     formatted_dates = from_ymd_to_adby(dates)
     await callback_query.message.edit_text(
-        text=f"Chosen service: {user_data['service_name']}\n Please, choose a date:",
+        text=f"•Chosen service: {user_data['service_name']}\n Please, choose a date:",
         reply_markup=gen_date_ikb_from_list(
             formatted_dates, 2, back_b="Go back to previous step"
         ),
@@ -127,7 +125,7 @@ async def handle_choose_emp_click(callback_query: CallbackQuery):
 async def handle_choose_emp_click(callback_query: CallbackQuery):
     user_data.update({"path": "emp"})
     await callback_query.message.edit_text(
-        text=f"Chosen service: {user_data['service_name']}\nPlease, choose an employee:",
+        text=f"•Chosen service: {user_data['service_name']}\nPlease, choose an employee:",
         reply_markup=gen_ikb_from_list(
             get_first_last(s_name=user_data["service_name"]),
             2,
@@ -152,7 +150,7 @@ async def employee_click(callback_query: CallbackQuery):
         formatted_dates = from_ymd_to_adby(dates)
         msg = (
             f"•Chosen service: {user_data['service_name']}"
-            f"\nChosen employee: {user_data['emp_name']}"
+            f"\n•Chosen employee: {user_data['emp_name']}"
             f"\nPlease, choose a day:"
         )
         await callback_query.message.edit_text(
@@ -169,6 +167,7 @@ async def employee_click(callback_query: CallbackQuery):
             f"\n•Chosen day: {user_data['date']}"
             f"\n•Chosen time: {user_data['time_slot']}"
             f"\n•Chosen employee: {user_data['emp_name']}"
+            f"\n\n❕Reminding you that after pressing 'Enter name' you won't be able to change details of your booking"
         )
         await callback_query.message.edit_text(
             text=msg,
@@ -340,7 +339,7 @@ async def ret_info_upc(callback_query: CallbackQuery):
 @dp.callback_query(F.data == "All upcoming")
 async def show_upc(callback_query: CallbackQuery):
     user_data.update({"user_tgid": callback_query.from_user.id})
-    # Return dictionary of booking_id-date from user Telegram id
+    # Return dictionary of booking_id-datetime from user Telegram id
     baid_date_dic = upcoming_id_date(
         user_id=int(user_data["user_tgid"])
     )  # {1: '2024-04-03 16:00', 2: '2024-04-05 17:00', 4: '2024-04-05 17:00'}
@@ -355,6 +354,7 @@ async def show_upc(callback_query: CallbackQuery):
         upcoming_all_dict.clear()
         # Pass {1: '2024-04-03 16:00', 2: '2024-04-05 17:00', 4: '2024-04-05 17:00'} into other file
         upcoming_all_dict.update(baid_date_dic)
+        # Check if there are more than 1 appointment
         date_id_dict = date_time_co(
             baid_date_dic
         )  # {'2025-12-04 13:00':[1, 3, 6]} If more than 1 appointment at the same date-time
@@ -394,7 +394,7 @@ async def user_messages(message: types.Message):
         await message.answer(
             msg,
             reply_markup=gen_ikb_from_list(
-                ["Make booking 🏆", "Enter your name again"], bperrow=2
+                ["Make booking 🏆", "Enter name again"], bperrow=2
             ),
             parse_mode=ParseMode.HTML,
         )
@@ -402,7 +402,7 @@ async def user_messages(message: types.Message):
 
 
 # Re-enter name callback
-@dp.callback_query(F.data == "Enter your name again")
+@dp.callback_query(F.data == "Enter name again")
 async def reentername(callback_query: CallbackQuery):
     await callback_query.message.delete()
     await callback_query.message.answer(text="Please, enter your name!")
@@ -459,7 +459,7 @@ async def book_ts(callback_query: CallbackQuery):
 @dp.callback_query(F.data == "Go back to previous step")
 async def backto_empvsdate(callback_query: CallbackQuery):
     await callback_query.message.edit_text(
-        text=f"Chosen service: {user_data['service_name']}",
+        text=f"•Chosen service: {user_data['service_name']}",
         reply_markup=gen_ikb_from_list(
             ["Choose employee", "Choose a date"],
             2,
@@ -473,7 +473,7 @@ async def backto_empvsdate(callback_query: CallbackQuery):
 async def backto_employees(callback_query: CallbackQuery):
     if user_data["path"] == "emp":
         await callback_query.message.edit_text(
-            text=f"Chosen service: {user_data['service_name']}\nPlease, choose an employee:",
+            text=f"•Chosen service: {user_data['service_name']}\nPlease, choose an employee:",
             reply_markup=gen_ikb_from_list(
                 get_first_last(s_name=user_data["service_name"]),
                 2,
@@ -488,9 +488,9 @@ async def backto_employees(callback_query: CallbackQuery):
         df["first_last"] = df.first_name + " " + df.last_name
         first_last = unique(df.first_last.tolist())
         msg = (
-            f"Chosen service: {user_data['service_name']}"
-            f"\nChosen date: {user_data['date']}"
-            f"\nChosen timeslot: {user_data['time_slot']}"
+            f"•Chosen service: {user_data['service_name']}"
+            f"\n•Chosen date: {user_data['date']}"
+            f"\n•Chosen timeslot: {user_data['time_slot']}"
             f"\nPlease, choose an employee:"
         )
         await callback_query.message.edit_text(
@@ -514,10 +514,10 @@ async def backto_ts(callback_query: CallbackQuery):
         surname_f = df.last_name.isin([surname])
         slots = df.loc[name_f & surname_f & date_f].free_slots.tolist()
         msg = (
-            f"Chosen service: {user_data['service_name']}"
-            f"\nChosen employee: {user_data['emp_name']}"
-            f"\nChosen day: {user_data['date']}"
-            f"\nPlease, choose a time slot:"
+            f"•Chosen service: {user_data['service_name']}"
+            f"\n•Chosen employee: {user_data['emp_name']}"
+            f"\n•Chosen day: {user_data['date']}"
+            f"\n•Please, choose a time slot:"
         )
         await callback_query.message.edit_text(
             text=msg,
@@ -560,9 +560,9 @@ async def backtodate(callback_query: CallbackQuery):
 
         formatted_dates = from_ymd_to_adby(dates)
         msg = (
-            f"Chosen service: {user_data['service_name']}"
-            f"\nChosen employee: {user_data['emp_name']}"
-            f"\nPlease, choose a day:"
+            f"•Chosen service: {user_data['service_name']}"
+            f"\n•Chosen employee: {user_data['emp_name']}"
+            f"\n•Please, choose a day:"
         )
         await callback_query.message.edit_text(
             text=msg,
@@ -574,7 +574,7 @@ async def backtodate(callback_query: CallbackQuery):
         dates = ret_empty_slots(se_name=user_data["service_name"], ret_dates=True)
         formatted_dates = from_ymd_to_adby(dates)
         await callback_query.message.edit_text(
-            text=f"Chosen service: {user_data['service_name']}\n Please, choose a date:",
+            text=f"•Chosen service: {user_data['service_name']}\n Please, choose a date:",
             reply_markup=gen_date_ikb_from_list(
                 formatted_dates, 2, back_b="Go back to previous step"
             ),
