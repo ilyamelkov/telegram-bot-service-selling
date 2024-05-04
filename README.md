@@ -15,8 +15,8 @@
     * <ins>sql_fun.py</ins>
         * Functions for easier SQL database creation
     * <ins>generate_db.ipynb</ins>
-        * File which creates database and adds some data to it  
-    * <ins>alter_check_db</ins>
+        * File which creates database and adds data to it  
+    * <ins>alter_check_db.py</ins>
         * Functions that alter database information
     * <ins>queries_fun.py</ins>
         * Functions that retrieve data from the specific database used in this project
@@ -34,8 +34,6 @@
         * Contains dictionaries where user's choices are saved
     * <ins>ERD.jpg</ins>
         * Visual representation of the database structure
-    * <ins>bot_demo.mp4 </ins>
-        * Demonstrates how the bot works
 
 ## **Database design**
 * This is how resulting database looks like (the image was created using DB Visualizer Software): 
@@ -48,7 +46,8 @@
 - View prices for services.
 
 ## **Demonstration**
-- Check 'bot_demo.mp4'
+https://github.com/ilyamelkov/telegram-bot-service-selling/assets/109285166/513168d4-3702-43f1-88b7-83d4cb9ff68c
+
 
 ## **Possible usage**
 - The data itself can be modified by other people. The bot can be reused considering the same database structure.
