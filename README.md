@@ -19,7 +19,7 @@
     * <ins>alter_check_db</ins>
         * Functions that alter database information
     * <ins>queries_fun.py</ins>
-        * Functions that retrieve data from the specific database I created
+        * Functions that retrieve data from the specific database used in this project
 
 2. Bot-related files:
     * <ins>bot_fun.py</ins>
@@ -29,11 +29,13 @@
 
 3. Other files:
     * <ins>constants.py</ins>
-        * Contains constant values which can be altered by will
+        * Contains constant values which can be altered
     * <ins>data_st.py</ins>
         * Contains dictionaries where user's choices are saved
     * <ins>ERD.jpg</ins>
         * Visual representation of the database structure
+    * <ins>bot_demo.mp4 </ins>
+        * Demonstrates how the bot works
 
 ## **Database design**
 * This is how resulting database looks like (the image was created using DB Visualizer Software): 
